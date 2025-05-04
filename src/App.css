@@ -1,3 +1,4 @@
+/* Background Color */
 .bgBlue {
     background-color: #2E2A72;
 }
@@ -16,4 +17,25 @@
 
 .bgPink {
     background-color: #FFB3BA;
+}
+
+/* Text Color */
+.textBlue {
+    color: #2E2A72;
+}
+
+.textPurple {
+    color: #392F5A;
+}
+
+.textDarkPink {
+    color: #FF677D;
+}
+
+.textTeaPink {
+    color: #D4A5A5;
+}
+
+.textPink {
+    color: #FFB3BA;
 }

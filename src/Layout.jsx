@@ -1,13 +1,13 @@
 import React from 'react'
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import Navbar from './components/NavBar'
 
 export default function Layout() {
   return (
-    <div className='min-h-screen bgBlue text-white font-medium'>
-      <nav className='flex items-center gap-4 h-15 p-4 bgPurple'>
-        <Link to="/" className=''>Home</Link>
-        <Link to="/mynote">My Note</Link>
-      </nav>
+    <div className='relative min-h-screen textBlue font-medium'>
+      <div className='sticky top-0 z-10 text-white'>
+        <Navbar />
+      </div>
       <Outlet />
     </div>
   )
