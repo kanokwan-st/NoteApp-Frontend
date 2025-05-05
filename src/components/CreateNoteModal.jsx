@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Button, Checkbox, FormControlLabel, IconButton, Radio, Stack, TextField } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
+import { createMyNote } from "../services/notesService";
 
 const style = {
   position: "absolute",
@@ -22,26 +23,45 @@ const style = {
   borderRadius: 4
 };
 
-export default function CreateNoteModal({ noteModal, closeNote }) {
+export default function CreateNoteModal({ noteModal, closeNote, refreshNotes }) {
 
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [tags, setTags] = useState();
   const [isPinned, setIsPinned] = useState(false);
 
-  function throwNoteToStored() {
-    const getNotesFromStored = JSON.parse(localStorage.getItem('notes')) || [];
+  // LOCAL STORAGE
+  // function createNote() {
+  //   const getNotesFromStored = JSON.parse(localStorage.getItem('notes')) || []; 
+  //   const newNote = {
+  //     title,
+  //     content,
+  //     tags,
+  //     isPinned
+  //   }
+  //   getNotesFromStored.push(newNote);
+  //   localStorage.setItem('notes', JSON.stringify(getNotesFromStored));
+  //   closeNote();
+  // }
 
-    const newNote = {
-      title,
-      content,
-      tags,
-      isPinned
+
+  // POST NEW NOTE TO BACKEND
+  const createNote = async () => {
+    try {
+      const newNote = {
+        title,
+        content,
+        tags,
+        isPinned,
+        userId: "6809c35541affeeac6429191",
+      }
+      await createMyNote(newNote);
+      await refreshNotes();
+    } catch(err) {
+      console.log(err)
+    } finally {
+      closeNote();
     }
-
-    getNotesFromStored.push(newNote);
-    localStorage.setItem('notes', JSON.stringify(getNotesFromStored));
-    closeNote();
   }
 
   return (
@@ -82,7 +102,7 @@ export default function CreateNoteModal({ noteModal, closeNote }) {
               <TextField onChange={(e) => setTags(e.target.value)} size="small" placeholder="Enter tags separated by commas" sx={{width: '100%'}}/>
               <FormControlLabel control={<Checkbox checked={isPinned} onChange={(e) => setIsPinned(e.target.checked)} />} label="Pin this note" sx={{mt: 1}} />
             </Stack>
-            <Button onClick={throwNoteToStored} variant="contained" sx={{width: '100%', marginTop: 2}}>Create Note</Button>
+            <Button onClick={createNote} variant="contained" sx={{width: '100%', marginTop: 2}}>Create Note</Button>
           </Box>
         </Fade>
       </Modal>

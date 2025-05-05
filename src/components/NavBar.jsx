@@ -9,7 +9,7 @@ export default function NavBar() {
         <div>
           <Link to="/" className='font-bold'>📝 My Note App</Link>
         </div>
-        <div className='flex items-center gap-5'>
+        <div className='flex items-center gap-10'>
           <Link to="/" className=''>Home</Link>
           <Link to="/mynote" >My Note</Link>
           <Link to="/profile" >Profile</Link>

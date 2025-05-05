@@ -2,6 +2,7 @@ import { Button, Chip, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import PushPinIcon from "@mui/icons-material/PushPin";
 import { Link } from "react-router-dom";
+import { deleteMyNoteById } from "../services/notesService";
 
 export default function NoteCard({
   isPinned = true,
@@ -9,7 +10,22 @@ export default function NoteCard({
   content = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium sapiente assumenda suscipit adipisci optio repudiandae fugiat eligendi quam? Ipsa odio voluptatem assumenda repellendus nobis pariatur provident sed eius, recusandae dolores?",
   tags = "tag",
   createdOn = "5/14/2025",
+  id,
+  refreshNotes
 }) {
+
+  const date = new Date(createdOn);
+
+  // DELETE FUNCTION
+  const deleteNote = async (id) => {
+    try {
+      await deleteMyNoteById(id);
+      await refreshNotes();
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div>
       <Paper
@@ -50,7 +66,7 @@ export default function NoteCard({
         <Chip label={`# ${tags}`} sx={{ alignSelf: "start", width: "auto" }} />
         <div className="flex justify-between mt-auto">
           <Typography sx={{ fontSize: "12px", paddingTop: "3px" }}>
-            Created on: {createdOn}
+            Created on: {date.toLocaleDateString()}
           </Typography>
           <div className="flex items-center gap-2 text-[12px]">
             <Link to="/" className="textBlue hover:underline">
@@ -59,7 +75,7 @@ export default function NoteCard({
             <Link to="/" className="textBlue hover:underline">
               Edit
             </Link>
-            <Link to="/" className="textBlue hover:underline">
+            <Link onClick={() => deleteNote(id)} className="textBlue hover:underline">
               Delete
             </Link>
             <Link to="/" className="textBlue hover:underline">

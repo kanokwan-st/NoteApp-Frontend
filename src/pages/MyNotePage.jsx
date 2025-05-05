@@ -8,6 +8,9 @@ import CreateNoteModal from "../components/CreateNoteModal";
 import { getMyNotes } from "../services/notesService";
 
 export default function MyNotePage() {
+
+  const [notes, setNotes] = useState([]) 
+
   // State for open and close Note Form Modal (Form for create a note)
   const [noteModal, setNoteModal] = useState(false);
 
@@ -19,30 +22,24 @@ export default function MyNotePage() {
     setNoteModal(false);
   }
 
-  // Pull notes from localStorage
-  const notes = JSON.parse(localStorage.getItem("notes")) || [];
+  // PULL NOTE FROM LOCAL STORAGE
+  // const notes = JSON.parse(localStorage.getItem("notes")) || [];
 
-  // CONNECT TO BACKEND
+  // CONNECT TO BACKEND (GET NOTES FROM DATABASE)
   const fetchNotes = async () => {
     try {
       const data = await getMyNotes();
-      console.log("This is data from fetching: " + data);
+      setNotes(data)
     } catch (err) {
-      console.error(
-        "Error fetching notes:",
-        err.response?.status,
-        err.response?.data || err.message
-      );
+      console.error(err);
     }
   };
-
 
   // Don't forget {}
   useEffect(() => {
     fetchNotes();
   }, []);
 
-  
   return (
     <div className="flex flex-col">
       {/* <header className="flex flex-col px-5 sm:px-10 md:px-20 lg:px-50 py-12 w-full bg-[linear-gradient(135deg,_#FFB3BA_10%,_#f8fcff_90%)] shadow-gray-400 shadow-lg"> */}
@@ -84,6 +81,7 @@ export default function MyNotePage() {
         <CreateNoteModal
           noteModal={noteModal}
           closeNote={closeCreateNoteForm}
+          refreshNotes={fetchNotes}
         />
       </header>
       <main className="flex flex-col px-5 sm:px-10 md:px-20 lg:px-50 py-10 w-full bg-[linear-gradient(180deg,_#2e2a72a2_30%,_#f8fcff_99%)]">
@@ -98,13 +96,18 @@ export default function MyNotePage() {
           {notes.map((note) => {
             return (
               <NoteCard
+                key={note._id}
+                id={note._id}
                 title={note.title}
                 content={note.content}
                 tags={note.tags}
                 isPinned={note.isPinned}
+                createdOn={note.createdOn}
+                refreshNotes={fetchNotes}
               />
             );
           })}
+
         </Stack>
       </main>
     </div>
