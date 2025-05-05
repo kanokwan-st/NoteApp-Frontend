@@ -53,16 +53,16 @@ export default function NoteCard({
             Created on: {createdOn}
           </Typography>
           <div className="flex items-center gap-2 text-[12px]">
-            <Link to="/" underline="hover" className="textBlue hover:underline">
+            <Link to="/" className="textBlue hover:underline">
               Details
             </Link>
-            <Link to="/" underline="hover" className="textBlue hover:underline">
+            <Link to="/" className="textBlue hover:underline">
               Edit
             </Link>
-            <Link to="/" underline="hover" className="textBlue hover:underline">
+            <Link to="/" className="textBlue hover:underline">
               Delete
             </Link>
-            <Link to="/" underline="hover" className="textBlue hover:underline">
+            <Link to="/" className="textBlue hover:underline">
               Publish
             </Link>
           </div>

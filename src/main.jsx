@@ -8,6 +8,8 @@ import Layout from "./Layout.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,8 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/mynote", element: <MyNotePage /> },
       { path: "/profile", element: <ProfilePage /> },
+      { path: "/register", element: <RegisterPage /> },
+      { path: "/login", element: <LoginPage /> },
     ],
   },
 ]);

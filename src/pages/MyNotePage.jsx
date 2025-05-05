@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Button, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import NoteCard from "../components/NoteCard";
 import CreateNoteModal from "../components/CreateNoteModal";
+import { getMyNotes } from "../services/notesService";
 
 export default function MyNotePage() {
   // State for open and close Note Form Modal (Form for create a note)
@@ -21,12 +22,34 @@ export default function MyNotePage() {
   // Pull notes from localStorage
   const notes = JSON.parse(localStorage.getItem("notes"));
 
+  // CONNECT TO BACKEND
+  const fetchNotes = async () => {
+    try {
+      const data = await getMyNotes();
+      console.log("This is data from fetching: " + data);
+    } catch (err) {
+      console.error(
+        "Error fetching notes:",
+        err.response?.status,
+        err.response?.data || err.message
+      );
+    }
+  };
+
+
+  // Don't forget {}
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
+  
   return (
     <div className="flex flex-col">
-      <header className="flex flex-col px-5 sm:px-10 md:px-20 lg:px-50 py-12 w-full bg-[linear-gradient(135deg,_#FFB3BA_10%,_#f8fcff_90%)] shadow-gray-400 shadow-lg">
+      {/* <header className="flex flex-col px-5 sm:px-10 md:px-20 lg:px-50 py-12 w-full bg-[linear-gradient(135deg,_#FFB3BA_10%,_#f8fcff_90%)] shadow-gray-400 shadow-lg"> */}
+      <header className="flex flex-col px-5 sm:px-10 md:px-20 lg:px-50 py-12 w-full bg-[linear-gradient(135deg,_#FFB3BA_10%,_#2e2a7231_70%)] shadow-gray-400 shadow-lg">
         <h1 className="pb-4 text-3xl font-bold">Welcome to My Note App 📝</h1>
         <p className="pb-8 italic">
-          The place where you can manage your life by creating a note
+          The place that help you manage your life by creating a note
         </p>
         <Stack direction="row" spacing={4} sx={{ paddingBottom: 3 }}>
           <TextField
@@ -64,7 +87,14 @@ export default function MyNotePage() {
         />
       </header>
       <main className="flex flex-col px-5 sm:px-10 md:px-20 lg:px-50 py-10 w-full bg-[linear-gradient(180deg,_#2e2a72a2_30%,_#f8fcff_99%)]">
-        <Stack  sx={{display: 'flex',flexDirection: 'row', gap: 3,flexWrap: 'wrap'}}>
+        <Stack
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 3,
+            flexWrap: "wrap",
+          }}
+        >
           {notes.map((note) => {
             return (
               <NoteCard
