@@ -1,8 +1,9 @@
 import { Button, Chip, Paper, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import PushPinIcon from "@mui/icons-material/PushPin";
 import { Link } from "react-router-dom";
 import { deleteMyNoteById } from "../services/notesService";
+import DetailModal from "./DetailModal";
 
 export default function NoteCard({
   isPinned = true,
@@ -13,6 +14,14 @@ export default function NoteCard({
   id,
   refreshNotes
 }) {
+
+  const [detailModal, setDetailModal] = useState(false)
+  function openDetail() {
+    setDetailModal(true)
+  }
+  function closeDetail() {
+    setDetailModal(false)
+  }
 
   const date = new Date(createdOn);
 
@@ -69,15 +78,20 @@ export default function NoteCard({
             Created on: {date.toLocaleDateString()}
           </Typography>
           <div className="flex items-center gap-2 text-[12px]">
-            <Link to="/" className="textBlue hover:underline">
+            {/* DETAIL */}
+            <Link onClick={openDetail} className="textBlue hover:underline">
               Details
             </Link>
+            <DetailModal detailModal={detailModal} closeDetail={closeDetail} title={title} content={content} tags={tags} isPinned={isPinned} createdOn={createdOn} />
+            {/* EDIT */}
             <Link to="/" className="textBlue hover:underline">
               Edit
             </Link>
+            {/* DELETE */}
             <Link onClick={() => deleteNote(id)} className="textBlue hover:underline">
               Delete
             </Link>
+            {/* PUBLISH */}
             <Link to="/" className="textBlue hover:underline">
               Publish
             </Link>
