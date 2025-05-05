@@ -32,6 +32,8 @@ export default function DetailModal({
   content,
   tags,
   createdOn,
+  id,
+  refreshNotes
 }) {
   return (
     <div>
@@ -66,6 +68,9 @@ export default function DetailModal({
               tags={tags}
               isPinned={isPinned}
               createdOn={createdOn}
+              id={id}
+              refreshNotes={refreshNotes}
+              closeDetail={closeDetail}
             />
           </Box>
         </Fade>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Box, Button, IconButton, Stack, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../services/usersService';
 
 
 const style = {
@@ -19,8 +20,20 @@ const style = {
 
 export default function LoginPage() {
 
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  // CONNECT TO BACKEND
+  const login = async () => {
+    const user = {
+      email,
+      password
+    }
+    await loginUser(user);
+    navigate('/mynote');
+  }
 
   return (
     <div className='w-full min-h-screen bg-[linear-gradient(135deg,_#FFB3BA_10%,_#2e2a7278_70%)]'>
@@ -32,13 +45,13 @@ export default function LoginPage() {
               <Typography sx={{ mt: 2, pb: 0.5 }}>
                 Email Address
               </Typography>
-              <TextField onChange={(e) => setEmail(e.target.value)} size="small" sx={{width: '100%'}}/>
+              <TextField value={email} onChange={(e) => setEmail(e.target.value)} size="small" sx={{width: '100%'}}/>
               <Typography sx={{ mt: 2, pb: 0.5 }}>
                 Password
               </Typography>
-              <TextField onChange={(e) => setPassword(e.target.value)} size="small" sx={{width: '100%'}}/>
+              <TextField value={password} onChange={(e) => setPassword(e.target.value)} size="small" sx={{width: '100%'}}/>
             </Stack>
-            <Button  variant="contained" sx={{width: '100%', marginTop: 3}}>Sign Up</Button>
+            <Button onClick={login} variant="contained" sx={{width: '100%', marginTop: 3}}>Sign Up</Button>
             <Typography  sx={{textAlign: 'center',paddingTop: 4, fontSize: '15px', color: '#3c3333'}}>
               Don't have an account? <Link to='/register' className="text-[#392F5A] font-bold hover:underline">Sign up</Link>
             </Typography>

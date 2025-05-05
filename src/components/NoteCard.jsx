@@ -83,13 +83,13 @@ export default function NoteCard({
             <Link onClick={openDetail} className="textBlue hover:underline">
               Details
             </Link>
-            <DetailModal detailModal={detailModal} closeDetail={closeDetail} title={title} content={content} tags={tags} isPinned={isPinned} createdOn={createdOn} />
+            <DetailModal detailModal={detailModal} closeDetail={closeDetail} refreshNotes={refreshNotes} id={id} title={title} content={content} tags={tags} isPinned={isPinned} createdOn={createdOn} />
             
             {/* DELETE BUTTON*/}
             <Link onClick={() => deleteNote(id)} className="textBlue hover:underline">
               Delete
             </Link>
-            
+
             {/* PUBLISH BUTTON*/}
             <Link to="/" className="textBlue hover:underline">
               Publish

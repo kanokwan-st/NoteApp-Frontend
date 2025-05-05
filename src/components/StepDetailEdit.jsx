@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DetailBlock from "./DetailBlock";
 import EditBlock from "./EditBlock";
+import { editMyNoteById } from "../services/notesService";
 
 export default function StepDetailEdit({
   isPinned,
@@ -12,7 +13,15 @@ export default function StepDetailEdit({
   content,
   tags,
   createdOn,
+  id,
+  refreshNotes,
+  closeDetail
 }) {
+  const [editIsPinned, setEditIsPinned] = useState(isPinned);
+  const [editTitle, setEditTitle] = useState(title);
+  const [editContent, setEditContent] = useState(content);
+  const [editTags, setEditTags] = useState(tags);
+
   const steps = ["DetailBlock", "EditBlock"];
   const step = [
     <DetailBlock
@@ -23,11 +32,14 @@ export default function StepDetailEdit({
       createdOn={createdOn}
     />,
     <EditBlock
-      title={title}
-      content={content}
-      tags={tags}
-      isPinned={isPinned}
-      createdOn={createdOn}
+      editIsPinned={editIsPinned}
+      setEditIsPinned={setEditIsPinned}
+      editTitle={editTitle}
+      setEditTitle={setEditTitle}
+      editContent={editContent}
+      setEditContent={setEditContent}
+      editTags={editTags}
+      setEditTags={setEditTags}
     />,
   ];
 
@@ -41,8 +53,15 @@ export default function StepDetailEdit({
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
+  const handleFinish = () => {
+    closeDetail()
+  };
+
+  const handleSave = async (id) => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const editedNote = { isPinned: editIsPinned, title: editTitle, content: editContent, tags:editTags };
+    await editMyNoteById(id, editedNote);
+    await refreshNotes();
   };
 
   return (
@@ -55,7 +74,7 @@ export default function StepDetailEdit({
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
             <Button
-              onClick={handleReset}
+              onClick={handleFinish}
               color="inherit"
               sx={{ mr: 0, background: "" }}
             >
@@ -65,7 +84,7 @@ export default function StepDetailEdit({
         </React.Fragment>
       ) : (
         // ---------------------------------------------------------------------------------------> here
-        <React.Fragment sx={{ width: "100%" }}>
+        <React.Fragment>
           <div className="pt-[32px]">{step[activeStep]}</div>
           <Box
             sx={{
@@ -98,7 +117,7 @@ export default function StepDetailEdit({
               </Button>
             ) : (
               <Button
-                onClick={handleNext}
+                onClick={() => handleSave(id)}
                 sx={{
                   width: "150px",
                   fontSize: "15px",

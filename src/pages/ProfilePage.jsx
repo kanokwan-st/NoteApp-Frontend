@@ -18,7 +18,6 @@ export default function ProfilePage() {
         No public notes available.
       </Typography>
 
-      <StepViewEdit />
     </div>
   );
 }

@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Checkbox, FormControlLabel, IconButton, Radio, Stack, TextField } from "@mui/material";
 
 export default function EditBlock({
-  isPinned,
-  title,
-  content,
-  tags,
+  editIsPinned,
+  setEditIsPinned,
+  editTitle,
+  setEditTitle,
+  editContent,
+  setEditContent,
+  editTags,
+  setEditTags,
   // createdOn,
 }) {
-
-  const [editIsPinned, setEditIsPinned] = useState(isPinned);
-  const [editTitle, setEditTitle] = useState(title);
-  const [editContent, setEditContent] = useState(content);
-  const [editTags, setEditTags] = useState(tags);
-
-
   return (
     <div>
       <Stack>
