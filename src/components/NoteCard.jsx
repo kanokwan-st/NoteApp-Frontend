@@ -78,20 +78,19 @@ export default function NoteCard({
             Created on: {date.toLocaleDateString()}
           </Typography>
           <div className="flex items-center gap-2 text-[12px]">
-            {/* DETAIL */}
+            
+            {/* DETAIL BUTTON*/}
             <Link onClick={openDetail} className="textBlue hover:underline">
               Details
             </Link>
             <DetailModal detailModal={detailModal} closeDetail={closeDetail} title={title} content={content} tags={tags} isPinned={isPinned} createdOn={createdOn} />
-            {/* EDIT */}
-            <Link to="/" className="textBlue hover:underline">
-              Edit
-            </Link>
-            {/* DELETE */}
+            
+            {/* DELETE BUTTON*/}
             <Link onClick={() => deleteNote(id)} className="textBlue hover:underline">
               Delete
             </Link>
-            {/* PUBLISH */}
+            
+            {/* PUBLISH BUTTON*/}
             <Link to="/" className="textBlue hover:underline">
               Publish
             </Link>

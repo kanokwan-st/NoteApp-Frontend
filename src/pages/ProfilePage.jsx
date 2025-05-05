@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import React from "react";
+import StepViewEdit from "../components/StepDetailEdit";
 
 export default function ProfilePage() {
   return (
@@ -16,6 +17,8 @@ export default function ProfilePage() {
       <Typography sx={{ paddingTop: 4, fontSize: "18px" }}>
         No public notes available.
       </Typography>
+
+      <StepViewEdit />
     </div>
   );
 }

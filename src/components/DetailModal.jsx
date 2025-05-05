@@ -4,20 +4,11 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
-import {
-  Button,
-  Checkbox,
-  Chip,
-  FormControlLabel,
-  IconButton,
-  Radio,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Button, Chip, IconButton, Stack } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PushPinIcon from "@mui/icons-material/PushPin";
+import StepDetailEdit from "./StepDetailEdit";
 
-// import { createMyNote } from "../services/notesService";
 
 const style = {
   position: "absolute",
@@ -36,16 +27,12 @@ const style = {
 export default function DetailModal({
   detailModal,
   closeDetail,
-//   refreshNotes,
-  isPinned = true,
-  title = "Title",
-  content = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium sapiente assumenda suscipit adipisci optio repudiandae fugiat eligendi quam? Ipsa odio voluptatem assumenda repellendus nobis pariatur provident sed eius, recusandae dolores?",
-  tags = "tag",
-  createdOn = "5/14/2025",
+  isPinned,
+  title,
+  content,
+  tags,
+  createdOn,
 }) {
-
-  const date = new Date(createdOn);
-
   return (
     <div>
       <Modal
@@ -62,7 +49,9 @@ export default function DetailModal({
         }}
       >
         <Fade in={detailModal}>
+          {/* BOX */}
           <Box sx={style}>
+            {/* CLOSE BUTTON */}
             <IconButton
               aria-label="close"
               onClick={closeDetail}
@@ -71,46 +60,13 @@ export default function DetailModal({
               <CloseIcon />
             </IconButton>
             {/* CONTENT */}
-            <Stack spacing={2}>
-              {isPinned && (
-                <Typography sx={{ fontSize: "14px", fontWeight: "600" }}>
-                  <PushPinIcon sx={{ fontSize: "20px" }} /> Pinned
-                </Typography>
-              )}
-              <Typography sx={{ fontSize: "18px", fontWeight: "600" }}>
-                {title}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  display: "-webkit-box",
-                  overflow: "hidden",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 4,
-                }}
-              >
-                {content}
-              </Typography>
-              <Chip
-                label={`# ${tags}`}
-                sx={{ alignSelf: "start", width: "auto" }}
-              />
-              <Typography sx={{ fontSize: "12px", paddingTop: "3px" }}>
-                Created on: {date.toLocaleDateString()}
-              </Typography>
-              <Button
-                        variant="contained"
-                        sx={{
-                          width: "150px",
-                          fontSize: "15px",
-                          backgroundColor: "primary.darkPink",
-                        }}
-                        // onClick={() => openCreateNoteForm()} //set state note to true --> open modal
-                      >
-                        Edit note
-                </Button>
-            </Stack>
-            {/* <Button onClick={createNote} variant="contained" sx={{width: '100%', marginTop: 2}}>Create Note</Button> */}
+            <StepDetailEdit
+              title={title}
+              content={content}
+              tags={tags}
+              isPinned={isPinned}
+              createdOn={createdOn}
+            />
           </Box>
         </Fade>
       </Modal>
