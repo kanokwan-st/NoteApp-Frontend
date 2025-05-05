@@ -20,7 +20,7 @@ export default function MyNotePage() {
   }
 
   // Pull notes from localStorage
-  const notes = JSON.parse(localStorage.getItem("notes"));
+  const notes = JSON.parse(localStorage.getItem("notes")) || [];
 
   // CONNECT TO BACKEND
   const fetchNotes = async () => {
