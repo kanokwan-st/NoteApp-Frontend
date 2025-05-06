@@ -93,7 +93,7 @@ export default function MyNotePage() {
             flexWrap: "wrap",
           }}
         >
-          {notes.map((note) => {
+          {Array.isArray(notes) && notes.map((note) => {
             return (
               <NoteCard
                 key={note._id}
