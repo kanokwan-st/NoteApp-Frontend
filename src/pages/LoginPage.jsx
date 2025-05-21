@@ -3,6 +3,7 @@ import { Box, Button, IconButton, Stack, TextField, Typography } from '@mui/mate
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/usersService';
+import { useAuth } from '../context/AuthContext';
 
 
 const style = {
@@ -19,20 +20,25 @@ const style = {
 };
 
 export default function LoginPage() {
-
+  const { login } = useAuth();
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   // CONNECT TO BACKEND
-  const login = async () => {
-    const user = {
-      email,
-      password
+  const handleLogin = async () => {
+    try {
+      const user = {
+        email,
+        password
+      }
+      const response = await loginUser(user);
+      login(response.user)
+      navigate('/mynote');
+    } catch(err) {
+      console.log(err);
     }
-    await loginUser(user);
-    navigate('/mynote');
   }
 
   return (
@@ -51,7 +57,7 @@ export default function LoginPage() {
               </Typography>
               <TextField value={password} onChange={(e) => setPassword(e.target.value)} size="small" sx={{width: '100%'}}/>
             </Stack>
-            <Button onClick={login} variant="contained" sx={{width: '100%', marginTop: 3}}>Sign Up</Button>
+            <Button onClick={handleLogin} variant="contained" sx={{width: '100%', marginTop: 3}}>Login</Button>
             <Typography  sx={{textAlign: 'center',paddingTop: 4, fontSize: '15px', color: '#3c3333'}}>
               Don't have an account? <Link to='/register' className="text-[#392F5A] font-bold hover:underline">Sign up</Link>
             </Typography>

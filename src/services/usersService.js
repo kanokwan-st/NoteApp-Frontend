@@ -6,6 +6,6 @@ export const registerNewUser = async (newUser) => {
 };
 
 export const loginUser = async (user) => {
-    const res = await api.post("mongo/auth/login", user);
+    const res = await api.post("mongo/auth/cookie/login", user);
     return res.data;
 };

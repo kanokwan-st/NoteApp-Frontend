@@ -22,10 +22,10 @@ export default function RegisterPage() {
   
 const navigate = useNavigate();
 
-  const [fullName, setFullName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPass, setConfirmPass] = useState();
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
 
   const register = async () => {
     const newUser = {

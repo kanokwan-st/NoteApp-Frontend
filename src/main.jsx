@@ -1,12 +1,13 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
+import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MyNotePage from "./pages/MyNotePage.jsx";
-import Layout from "./Layout.jsx";
-import HomePage from "./pages/HomePage.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import ProtectedRoute from "./components/common/ProtectedRoute.jsx";
+import Layout from "./Layout.jsx";
+import MyNotePage from "./pages/MyNotePage.jsx";
+import HomePage from "./pages/HomePage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
@@ -17,8 +18,8 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/mynote", element: <MyNotePage /> },
-      { path: "/profile", element: <ProfilePage /> },
+      { path: "/mynote", element: <ProtectedRoute><MyNotePage /></ProtectedRoute> },
+      { path: "/profile", element: <ProtectedRoute><ProfilePage /></ProtectedRoute> },
       { path: "/register", element: <RegisterPage /> },
       { path: "/login", element: <LoginPage /> },
     ],
@@ -42,9 +43,9 @@ const theme = createTheme({
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-      <App>
-        <RouterProvider router={router} />
-      </App>
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
     </ThemeProvider>
   </StrictMode>
 );

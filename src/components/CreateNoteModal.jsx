@@ -25,9 +25,9 @@ const style = {
 
 export default function CreateNoteModal({ noteModal, closeNote, refreshNotes }) {
 
-  const [title, setTitle] = useState();
-  const [content, setContent] = useState();
-  const [tags, setTags] = useState();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [tags, setTags] = useState('');
   const [isPinned, setIsPinned] = useState(false);
 
   // LOCAL STORAGE
