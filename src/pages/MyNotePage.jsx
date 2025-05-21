@@ -29,7 +29,7 @@ export default function MyNotePage() {
   const fetchNotes = async () => {
     try {
       const data = await getMyNotes();
-      setNotes(data)
+      setNotes(data.notes)
     } catch (err) {
       console.error(err);
     }
@@ -39,6 +39,8 @@ export default function MyNotePage() {
   useEffect(() => {
     fetchNotes();
   }, []);
+
+
 
   return (
     <div className="flex flex-col">

@@ -2,13 +2,13 @@ import api from "./api";
 
 // FETCH ALL NOTES
 export const getMyNotes = async () => {
-    const response = await api.get("/mongo/notes");
+    const response = await api.get("/mongo/get-all-notes");
     return response.data;
 };
 
 // CREATE NOTE
 export const createMyNote = async (newNote) => {
-    const response = await api.post("/mongo/notes", newNote);
+    const response = await api.post("/mongo/add-note", newNote);
     return response.data;
 }
 

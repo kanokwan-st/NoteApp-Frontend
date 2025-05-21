@@ -53,7 +53,6 @@ export default function CreateNoteModal({ noteModal, closeNote, refreshNotes }) 
         content,
         tags,
         isPinned,
-        userId: "6809c35541affeeac6429191",
       }
       await createMyNote(newNote);
       await refreshNotes();
